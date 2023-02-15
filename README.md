@@ -23,3 +23,6 @@ Godot 3.5.1:
 Godot 4, RC2:
 ![VS_G4](https://user-images.githubusercontent.com/58372501/219147625-2122b5a3-f84d-420b-9446-7fadfc1a9afd.PNG)
 
+# About the Repository
+
+This Repository contains a tiny project to see this bug. The Folder "Godot3_to_4_vsBug" contains the Godot 3.5.1 project, and the folder "Godot3_to_4_vsBug - InGodot4" contains the project after importing and converting to Godot 4. Open Scene "Demo.tscn", which holds a simple "TextureRect" (as a child of one control node) with a Visual Shader that showcases this problem.
