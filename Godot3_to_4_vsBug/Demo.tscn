@@ -1,0 +1,93 @@
+[gd_scene load_steps=11 format=2]
+
+[sub_resource type="VisualShaderNodeInput" id=1]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=2]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=3]
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.00809717, 0.680162, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 0.0392157, 0, 0, 0, 0.533333 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+width = 256
+
+[sub_resource type="VisualShaderNodeTexture" id=6]
+output_port_for_preview = 0
+texture = SubResource( 5 )
+
+[sub_resource type="VisualShader" id=7]
+code = "shader_type canvas_item;
+uniform sampler2D tex_frg_5;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Input:2
+	vec3 n_out2p0 = vec3(UV, 0.0);
+
+// VectorDecompose:3
+	float n_out3p0 = n_out2p0.x;
+	float n_out3p1 = n_out2p0.y;
+	float n_out3p2 = n_out2p0.z;
+
+// VectorCompose:4
+	vec3 n_out4p0 = vec3(n_out3p1, n_out3p0, n_out3p2);
+
+// Texture:5
+	vec4 tex_frg_5_read = texture(tex_frg_5, n_out4p0.xy);
+	vec3 n_out5p0 = tex_frg_5_read.rgb;
+	float n_out5p1 = tex_frg_5_read.a;
+
+// Output:0
+	COLOR.rgb = n_out5p0;
+	COLOR.a = n_out5p1;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -536, -88.75 )
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2( 460, 80 )
+nodes/fragment/2/node = SubResource( 1 )
+nodes/fragment/2/position = Vector2( -420, 80 )
+nodes/fragment/3/node = SubResource( 2 )
+nodes/fragment/3/position = Vector2( -260, 80 )
+nodes/fragment/4/node = SubResource( 3 )
+nodes/fragment/4/position = Vector2( -40, 80 )
+nodes/fragment/5/node = SubResource( 6 )
+nodes/fragment/5/position = Vector2( 180, 40 )
+nodes/fragment/connections = PoolIntArray( 3, 0, 4, 1, 3, 1, 4, 0, 3, 2, 4, 2, 4, 0, 5, 0, 5, 0, 0, 0, 5, 1, 0, 1, 2, 0, 3, 0 )
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+
+[sub_resource type="Gradient" id=9]
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+width = 256
+
+[node name="RootControl" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource( 8 )
+margin_right = 40.0
+margin_bottom = 40.0
+texture = SubResource( 10 )
+expand = true
